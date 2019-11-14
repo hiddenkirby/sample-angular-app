@@ -1,0 +1,9 @@
+<div>
+  <p>Login with your FactChain Pen account.</p>
+  <button *ngIf="!isLoggedIn()" (click)="login()">Login</button>
+  <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+</div>
+
+<div>
+  <p>Don't have an account? Get the FactChain Pen <a href="https://factchain.com/factchain-pen/">here</a>.</p>
+</div>
