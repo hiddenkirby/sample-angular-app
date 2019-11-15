@@ -7,10 +7,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { SignComponent } from './sign/sign.component';
 import { AuthTokenInterceptor } from './auth-token.interceptor';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     AuthCallbackComponent,
     SignComponent
   ],

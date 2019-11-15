@@ -7,12 +7,11 @@ import { shareReplay } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as auth0 from 'auth0-js';
 
-// Auth0 client ID and domain
-const clientID = environment.auth0ClientId;
-const domain = environment.auth0Domain;
+// Auth0 client ID
+const clientID = '8y6tZ3QM3qXlx7oMfmFoEa7ZHphaLzsI';
 
-const ACCESS_TOKEN_NAME = environment.accessTokenName;
-const ID_TOKEN_NAME = environment.idTokenName;
+const ACCESS_TOKEN_NAME = 'accessToken';
+const ID_TOKEN_NAME = 'idToken';
 
 // This is now the Factchain User
 export interface User {
@@ -43,11 +42,12 @@ export class AuthService {
   private $user: Observable<User>;
 
   private auth0 = new auth0.WebAuth({
-    clientID,
-    domain,
-    audience: environment.factchainUrl, // Factchain API identifier
+    clientID: '8y6tZ3QM3qXlx7oMfmFoEa7ZHphaLzsI',
+    domain: 'factchain-pen.auth0.com',
+    audience: 'https://factchain.com/api', // Factchain API identifier
     responseType: 'token id_token',
-    redirectUri: environment.auth0RedirectUri,
+    // redirectUri: 'http://app.local:4200/authCallback',
+    redirectUri: 'http://localhost:4200/authCallback',
     scope: 'openid profile email' // Request publisher scope
   });
 
@@ -115,29 +115,6 @@ export class AuthService {
     return this.$user;
   }
 
-  private randomString(length: number): string {
-    const charset =
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._~';
-
-    const cryptoObj = window.crypto;
-    if (cryptoObj) {
-      const random = cryptoObj.getRandomValues(new Uint8Array(length));
-      const len = random.length;
-      const result = [];
-      for (let i = 0; i < len; i++) {
-        result.push(charset[random[i] % charset.length]);
-      }
-      return result.join('');
-    } else {
-      let result = '';
-      const charactersLength = charset.length;
-      for (let i = 0; i < length; i++) {
-        result += charset.charAt(Math.floor(Math.random() * charactersLength));
-      }
-      return result;
-    }
-  }
-
   public handleAuthentication(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.auth0.parseHash(
@@ -177,14 +154,8 @@ export class AuthService {
     return this.accessToken && !this.jwtHelper.isTokenExpired(this.accessToken);
   }
 
-  public login(url?: string): void {
-    if (url) {
-      const state = this.randomString(32);
-      sessionStorage.setItem(state, url);
-      this.auth0.authorize({state});
-    } else {
-      this.auth0.authorize();
-    }
+  public login(): void {
+    this.auth0.authorize();
   }
 
   public logout(): void {
@@ -196,7 +167,7 @@ export class AuthService {
 
     this.auth0.logout({
       clientID,
-      returnTo: environment.auth0LogoutUrl
+      returnTo: 'http://localhost:4200/logout'
     });
   }
 }

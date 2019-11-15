@@ -5,13 +5,7 @@
 // These environment variables are not production urls.
 export const environment = {
   production: false,
-  auth0RedirectUri: 'http://localhost:4200/authCallback',
-  auth0LogoutUrl: 'http://localhost:4200/logout',
-  factchainUrl: 'https://api.factchain.com/api',
-  auth0ClientId: '8y6tZ3QM3qXlx7oMfmFoEa7ZHphaLzsI',
-  auth0Domain: 'factchain-pen.auth0.com',
-  accessTokenName: 'accessToken',
-  idTokenName: 'idToken'
+  factchainUrl: 'https://api.factchain.com/api'
 };
 
 /*
