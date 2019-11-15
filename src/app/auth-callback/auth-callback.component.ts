@@ -19,11 +19,7 @@ export class AuthCallbackComponent implements OnInit {
       .handleAuthentication()
       .then(authResponse => {
         console.log('authResponse: ', authResponse);
-        if (authResponse.route) {
-          this.router.navigate([authResponse.route]);
-        } else {
-          this.router.navigate(['/']);
-        }
+        this.router.navigate(['/']);
       }, rejected => {
         console.error('Auth Rejected: authResponse: ', rejected);
         this.router.navigate(['/']);

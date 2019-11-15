@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     if (!this.authService.isAuthenticated()) {
       if (this.authService.accessToken) {
         // Expired token? Initiate login.
-        this.authService.login(state.url);
+        this.authService.login();
       } else {
         // No token? Perhaps this is the first time the user has visited the
         // site in the browser? Maybe they need to enroll. Send them to home page.
